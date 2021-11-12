@@ -1,10 +1,11 @@
 class Mascota {
-  constructor(nombre, tipo, sexo, raza, color) {
+  constructor(nombre, tipo, sexo, raza, color, descripcion) {
     this.nombre = nombre;
     this.tipo = tipo;
     this.sexo = sexo;
     this.raza = raza;
     this.color = color;
+    this.descripcion = descripcion;
   }
 
   cambiarNombre(nuevoNombre) {
@@ -13,12 +14,54 @@ class Mascota {
 }
 
 const mascotasEnAdopcion = [
-  new Mascota("richard", "gato", "macho", "indefinido", "marron"),
-  new Mascota("reina", "gato", "hembra", "siames", "blanco"),
-  new Mascota("lupe", "perro", "hembra", "caniche", "blanco"),
-  new Mascota("mar", "perro", "hembra", "indefinido", "marron"),
-  new Mascota("piolin", "pajaro", "macho", "canario", "amarillo"),
-  new Mascota("donald", "pajaro", "macho", "pato", "blanco"),
+  new Mascota(
+    "richard",
+    "gato",
+    "macho",
+    "indefinido",
+    "marron",
+    "gato gris grande :)"
+  ),
+  new Mascota(
+    "reina",
+    "gato",
+    "hembra",
+    "siames",
+    "blanco",
+    "gata marron grande :)"
+  ),
+  new Mascota(
+    "lupe",
+    "perro",
+    "hembra",
+    "caniche",
+    "blanco",
+    "perra marron grande :)"
+  ),
+  new Mascota(
+    "mar",
+    "perro",
+    "hembra",
+    "indefinido",
+    "marron",
+    "perra marro grande :)"
+  ),
+  new Mascota(
+    "piolin",
+    "pajaro",
+    "macho",
+    "canario",
+    "amarillo",
+    "pajaro chiquito amarillo :)"
+  ),
+  new Mascota(
+    "donald",
+    "pajaro",
+    "macho",
+    "pato",
+    "blanco",
+    "pajaro blanco grande :)"
+  ),
 ];
 
 const crearMascota = function () {
@@ -27,8 +70,11 @@ const crearMascota = function () {
   let sexo = prompt("Ingrese el sexo de la mascota: ");
   let raza = prompt("Ingrese la raza de la mascota: ");
   let color = prompt("Ingrese el color de la mascota: ");
+  let descripcion = prompt("Ingrese una breve descripcion de la mascota: ");
 
-  return new Mascota(nombre, tipo, sexo, raza, color);
+  let mascotaNueva = new Mascota(nombre, tipo, sexo, raza, color, descripcion);
+  agregarMascotaDOM(mascotaNueva);
+  return mascotaNueva;
 };
 
 const cantidadDeMascotasEnAdopcion = () => mascotasEnAdopcion.length;
@@ -45,8 +91,51 @@ const eliminarMascota = function (mascota) {
   const index = mascotasEnAdopcion.indexOf(mascota);
   if (index > -1) {
     mascotasEnAdopcion.splice(index, 1);
+    sacarMascotaDelDOM(index);
   }
 };
+
+/* DOM */
+const $menu = document.querySelector("#menu");
+const $container = document.querySelector(".container");
+
+const crearEsqueletoHTML = function () {
+  let contenedor = document.createElement("div");
+  contenedor.innerHTML = `<h1>MASCOTAS EN ADOPCION</h1>`;
+  $menu.appendChild(contenedor);
+};
+
+const crearCardsMascotas = function () {
+  for (let mascota of mascotasEnAdopcion) {
+    agregarMascotaDOM(mascota);
+  }
+};
+
+const sacarMascotaDelDOM = function (indexMascota) {
+  $container.removeChild($container.childNodes[indexMascota]);
+  console.log($container.childNodes[indexMascota]);
+};
+
+const agregarMascotaDOM = function (mascota) {
+  let card = document.createElement("div");
+  card.innerHTML = `<div
+    class="card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4"
+    style="width: 18rem"
+  >
+    <div class="card-body">
+      <h5 class="card-title">${mascota.nombre}</h5>
+      <p class="card-text">${mascota.descripcion}</p>
+      <a href="./adoptarMascotaParticular.html" class="btn btn-primary"
+        >Mas informacion</a
+      >
+    </div>
+  </div>`;
+
+  $container.appendChild(card);
+};
+
+crearEsqueletoHTML();
+crearCardsMascotas();
 
 // SIMULADOR REFUGIO DE MASCOTAS
 let opcion = 999;
@@ -75,6 +164,7 @@ do {
       alert(`Se adopto a ${mascotaAAdoptar.nombre} correcamente.`);
 
       eliminarMascota(mascotaAAdoptar);
+      sacarMascotaDelDOM(mascotaAAdoptar);
       break;
 
     case "2":
