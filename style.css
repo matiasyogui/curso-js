@@ -1,0 +1,13 @@
+.titulo-simulador {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.oculto {
+  display: none;
+}
+
+.grilla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

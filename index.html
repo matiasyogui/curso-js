@@ -10,11 +10,50 @@
       integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="style.css" />
     <title>Pre-entrega proyecto final</title>
   </head>
   <body>
-    <div id="menu"></div>
-    <div class="container"></div>
+    <h1 class="titulo-simulador">REFUGIO DE MASCOTAS :D</h1>
+    <div id="menu">
+      <button id="mostrar-mascotas">Mostrar todas las mascotas!</button>
+      <button id="poner-adopcion-mascota">Pone en adopcion una mascota!</button>
+    </div>
+    <div class="container">
+      <div class="mascotas-totales"></div>
+
+      <div class="form-poner-en-adopcion oculto">
+        <form action="">
+          <label for="nombre">Nombre de la mascota</label>
+          <input type="text" name="nombre" class="nombre" required />
+          <br />
+
+          <label for="tipo">Tipo de la mascota</label>
+          <input type="text" name="tipo" class="tipo" required />
+          <br />
+
+          <label for="sexo">Sexo de la mascota</label>
+          <input type="text" name="sexo" class="sexo" required />
+          <br />
+
+          <label for="raza">Raza de la mascota</label>
+          <input type="text" name="raza" class="raza" required />
+          <br />
+
+          <label for="color">Color de la mascota</label>
+          <input type="text" name="color" class="color" required />
+          <br />
+
+          <label for="descripcion">Breve descipcion de la mascota</label>
+          <input type="text" name="descripcion" class="descripcion" required />
+          <br />
+
+          <button type="submit" class="enviar-form" value="Enviar form">
+            Enviar!
+          </button>
+        </form>
+      </div>
+    </div>
     <script src="./app.js"></script>
   </body>
 </html>

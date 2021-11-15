@@ -1,3 +1,4 @@
+// MASCOTA OBJETO
 class Mascota {
   constructor(nombre, tipo, sexo, raza, color, descripcion) {
     this.nombre = nombre;
@@ -13,6 +14,7 @@ class Mascota {
   }
 }
 
+// ARRAY INICIAL
 const mascotasEnAdopcion = [
   new Mascota(
     "richard",
@@ -64,6 +66,7 @@ const mascotasEnAdopcion = [
   ),
 ];
 
+// FUNCIONES
 const crearMascota = function () {
   let nombre = prompt("Ingrese el nombre de la mascota: ");
   let tipo = prompt("Ingrese el tipo de la mascota: ");
@@ -93,30 +96,34 @@ const eliminarMascota = function (mascota) {
     mascotasEnAdopcion.splice(index, 1);
     sacarMascotaDelDOM(index);
   }
+
+  localStorage.removeItem(mascota.nombre);
 };
 
 /* DOM */
 const $menu = document.querySelector("#menu");
-const $container = document.querySelector(".container");
-
-const crearEsqueletoHTML = function () {
-  let contenedor = document.createElement("div");
-  contenedor.innerHTML = `<h1>MASCOTAS EN ADOPCION</h1>`;
-  $menu.appendChild(contenedor);
-};
+const $mascotasTotales = document.querySelector(".mascotas-totales");
+const $formMascotas = document.querySelector(".form-poner-en-adopcion");
 
 const crearCardsMascotas = function () {
-  for (let mascota of mascotasEnAdopcion) {
-    agregarMascotaDOM(mascota);
+  if (localStorage.length === 0) {
+    for (let mascota of mascotasEnAdopcion) {
+      agregarMascotaDOM(mascota);
+    }
+  } else {
+    Object.keys(localStorage).forEach(function (key) {
+      let mascota = JSON.parse(localStorage.getItem(key));
+      crearCardMascotaParticular(mascota);
+    });
   }
 };
 
 const sacarMascotaDelDOM = function (indexMascota) {
-  $container.removeChild($container.childNodes[indexMascota]);
-  console.log($container.childNodes[indexMascota]);
+  $mascotasTotales.removeChild($mascotasTotales.childNodes[indexMascota]);
+  console.log($mascotasTotales.childNodes[indexMascota]);
 };
 
-const agregarMascotaDOM = function (mascota) {
+const crearCardMascotaParticular = (mascota) => {
   let card = document.createElement("div");
   card.innerHTML = `<div
     class="card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4"
@@ -125,59 +132,50 @@ const agregarMascotaDOM = function (mascota) {
     <div class="card-body">
       <h5 class="card-title">${mascota.nombre}</h5>
       <p class="card-text">${mascota.descripcion}</p>
-      <a href="./adoptarMascotaParticular.html" class="btn btn-primary"
-        >Mas informacion</a
+      <button type="submit" class="btn btn-primary ${mascota.nombre}"
+        >ADOPTAR</button
       >
     </div>
   </div>`;
 
-  $container.appendChild(card);
+  $mascotasTotales.appendChild(card);
+
+  const $botonAdoptar = document.querySelector(`.${mascota.nombre}`);
+  $botonAdoptar.addEventListener("click", () => {
+    eliminarMascota(mascota);
+  });
 };
 
-crearEsqueletoHTML();
+const agregarMascotaDOM = function (mascota) {
+  crearCardMascotaParticular(mascota);
+  localStorage.setItem(`${mascota.nombre}`, JSON.stringify(mascota));
+};
+
+const $botonSubmit = document.querySelector(".enviar-form");
+$botonSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  let nombre = document.querySelector(".nombre").value;
+  let tipo = document.querySelector(".tipo").value;
+  let sexo = document.querySelector(".sexo").value;
+  let raza = document.querySelector(".raza").value;
+  let color = document.querySelector(".color").value;
+  let descripcion = document.querySelector(".descripcion").value;
+
+  agregarMascotaDOM(new Mascota(nombre, tipo, sexo, raza, color, descripcion));
+});
+
+// FUNCIONES BOTONES MENU
+const cambiarVentanas = () => {
+  $mascotasTotales.classList.toggle("oculto");
+  $formMascotas.classList.toggle("oculto");
+};
+
+let $botonMostrarMascotas = document.querySelector("#mostrar-mascotas");
+let $botonFormAdoptar = document.querySelector("#poner-adopcion-mascota");
+
+$botonMostrarMascotas.addEventListener("click", cambiarVentanas);
+$botonFormAdoptar.addEventListener("click", cambiarVentanas);
+
+// MAIN
 crearCardsMascotas();
-
-// SIMULADOR REFUGIO DE MASCOTAS
-let opcion = 999;
-do {
-  opcion = prompt(
-    "¿Que desea hacer?: 1-Adoptar mascota. 2-Poner en adopcion mascota. 3-Saber la cantidad de mascotas en adopcion. 0-Salir. "
-  );
-  switch (opcion) {
-    case "1":
-      let tipo = prompt("¿Que tipo de mascota desea adoptar?");
-      let mascotasFiltradas = filtrarPorTipo(tipo);
-
-      console.log(mascotasFiltradas);
-
-      for (const mascota of mascotasFiltradas) {
-        alert(
-          `${mascota.nombre} es un ${mascota.tipo} ${mascota.sexo} de color ${mascota.color}`
-        );
-      }
-
-      let nombre = prompt(
-        "Indique el nombre de la mascota que quiere adoptar."
-      );
-
-      let mascotaAAdoptar = buscarMascotaPorNombre(nombre);
-      alert(`Se adopto a ${mascotaAAdoptar.nombre} correcamente.`);
-
-      eliminarMascota(mascotaAAdoptar);
-      sacarMascotaDelDOM(mascotaAAdoptar);
-      break;
-
-    case "2":
-      agregarMascotaEnAdopcion();
-      alert("Mascota agregada correctamente");
-      break;
-    case "3":
-      alert(
-        `La cantiadad total de mascotas es de ${cantidadDeMascotasEnAdopcion()}.`
-      );
-      console.log(mascotasEnAdopcion);
-      break;
-    case "0":
-      alert("OK GOODBYE :)");
-  }
-} while (opcion != 0);
