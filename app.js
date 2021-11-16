@@ -138,10 +138,16 @@ const crearCardMascotaParticular = (mascota) => {
     </div>
   </div>`;
 
-  $mascotasTotales.appendChild(card);
+  /*   $mascotasTotales.appendChild(card); */
 
-  const $botonAdoptar = document.querySelector(`.${mascota.nombre}`);
+  $(".mascotas-totales").append(card);
+
+  /* const $botonAdoptar = document.querySelector(`.${mascota.nombre}`);
   $botonAdoptar.addEventListener("click", () => {
+    eliminarMascota(mascota);
+  }); */
+
+  $(`.${mascota.nombre}`).click(() => {
     eliminarMascota(mascota);
   });
 };
@@ -151,7 +157,7 @@ const agregarMascotaDOM = function (mascota) {
   localStorage.setItem(`${mascota.nombre}`, JSON.stringify(mascota));
 };
 
-const $botonSubmit = document.querySelector(".enviar-form");
+/* const $botonSubmit = document.querySelector(".enviar-form");
 $botonSubmit.addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -163,6 +169,26 @@ $botonSubmit.addEventListener("click", (e) => {
   let descripcion = document.querySelector(".descripcion").value;
 
   agregarMascotaDOM(new Mascota(nombre, tipo, sexo, raza, color, descripcion));
+}); */
+
+const $botonSubmit = $(".formulario-adopcion");
+$botonSubmit.submit(function (e) {
+  e.preventDefault();
+  let hijos = $(e.target).children();
+
+  console.log(hijos);
+
+  agregarMascotaDOM(
+    new Mascota(
+      hijos[1].value,
+      hijos[4].value,
+      hijos[7].value,
+      hijos[3].value,
+      hijos[10].value,
+      hijos[13].value,
+      hijos[16].value
+    )
+  );
 });
 
 // FUNCIONES BOTONES MENU
