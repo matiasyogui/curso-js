@@ -183,7 +183,6 @@ $botonSubmit.submit(function (e) {
       hijos[1].value,
       hijos[4].value,
       hijos[7].value,
-      hijos[3].value,
       hijos[10].value,
       hijos[13].value,
       hijos[16].value
@@ -192,7 +191,7 @@ $botonSubmit.submit(function (e) {
 });
 
 // FUNCIONES BOTONES MENU
-const cambiarVentanas = () => {
+/* const cambiarVentanas = () => {
   $mascotasTotales.classList.toggle("oculto");
   $formMascotas.classList.toggle("oculto");
 };
@@ -201,7 +200,15 @@ let $botonMostrarMascotas = document.querySelector("#mostrar-mascotas");
 let $botonFormAdoptar = document.querySelector("#poner-adopcion-mascota");
 
 $botonMostrarMascotas.addEventListener("click", cambiarVentanas);
-$botonFormAdoptar.addEventListener("click", cambiarVentanas);
+$botonFormAdoptar.addEventListener("click", cambiarVentanas); */
+
+$("#mostrar-mascotas").click(() => {
+  $(".mascotas-totales").toggle("slow");
+});
+
+$("#poner-adopcion-mascota").click(() => {
+  $(".form-poner-en-adopcion").toggle("fast");
+});
 
 // MAIN
 crearCardsMascotas();
