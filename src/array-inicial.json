@@ -1,0 +1,56 @@
+[
+  {
+    "id": 0,
+    "nombre": "richard",
+    "tipo": "gato",
+    "sexo": "macho",
+    "raza": "indefinido",
+    "color": "marron",
+    "descripcion": "gato gris grande :)"
+  },
+  {
+    "id": 1,
+    "nombre": "reina",
+    "tipo": "gato",
+    "sexo": "hembra",
+    "raza": "siames",
+    "color": "blanco",
+    "descripcion": "gata marron grande :)"
+  },
+  {
+    "id": 2,
+    "nombre": "lupe",
+    "tipo": "perro",
+    "sexo": "hembra",
+    "raza": "caniche",
+    "color": "blanco",
+    "descripcion": "perra marron grande :)"
+  },
+  {
+    "id": 3,
+    "nombre": "mar",
+    "tipo": "perro",
+    "sexo": "hembra",
+    "raza": "indefinido",
+    "color": "marron",
+    "descripcion": "perra marro grande :)"
+  },
+  {
+    "id": 4,
+    "nombre": "piolin",
+    "tipo": "pajaro",
+    "sexo": "macho",
+    "raza": "canario",
+    "color": "amarillo",
+    "descripcion": "pajaro chiquito amarillo :)"
+  },
+  {
+    "id": 5,
+    "nombre": "donald",
+    "tipo": "pajaro",
+    "sexo": "macho",
+    "raza": "pato",
+    "color": "blanco",
+    "descripcion": "pajaro blanco grande :)"
+  }
+]

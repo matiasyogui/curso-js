@@ -17,7 +17,7 @@ class Mascota {
 }
 
 // ARRAY INICIAL
-const mascotasEnAdopcion = [
+let mascotasEnAdopcion = [
   new Mascota(
     "richard",
     "gato",
@@ -67,6 +67,13 @@ const mascotasEnAdopcion = [
     "pajaro blanco grande :)"
   ),
 ];
+/* let mascotasEnAdopcion = [];
+const urlArrayInicial = "./src/array-inicial.json";
+$.get(urlArrayInicial, function (res, req) {
+  if (req === "success") {
+    mascotasEnAdopcion = res;
+  }
+}); */
 
 // FUNCIONES
 const crearMascota = function () {
@@ -91,10 +98,14 @@ const crearMascota = function () {
   return mascotaNueva;
 };
 
+console.log(JSON.stringify(mascotasEnAdopcion));
+
 const cantidadDeMascotasEnAdopcion = () => mascotasEnAdopcion.length;
+
 const agregarMascotaEnAdopcion = () => {
   mascotasEnAdopcion.push(crearMascota());
 };
+
 const filtrarPorTipo = (tipo) =>
   mascotasEnAdopcion.filter((mascota) => mascota.tipo === tipo);
 
@@ -103,12 +114,13 @@ const buscarMascotaPorNombre = (nombre) =>
 
 const eliminarMascota = function (mascota) {
   const index = mascotasEnAdopcion.indexOf(mascota);
+  console.log("eliminarMascota " + index + mascota.id);
+
   if (index > -1) {
     mascotasEnAdopcion.splice(index, 1);
     sacarMascotaDelDOM(index);
+    localStorage.removeItem(mascota.id);
   }
-
-  localStorage.removeItem(mascota.nombre);
 };
 
 /* DOM */
@@ -122,8 +134,10 @@ const crearCardsMascotas = function () {
       agregarMascotaDOM(mascota);
     }
   } else {
+    mascotasEnAdopcion = [];
     Object.keys(localStorage).forEach(function (key) {
       let mascota = JSON.parse(localStorage.getItem(key));
+      mascotasEnAdopcion.push(mascota);
       crearCardMascotaParticular(mascota);
     });
   }
@@ -143,7 +157,7 @@ const crearCardMascotaParticular = (mascota) => {
     <div class="card-body">
       <h5 class="card-title">${mascota.nombre}</h5>
       <p class="card-text">${mascota.descripcion}</p>
-      <button type="submit" class="btn btn-primary ${mascota.nombre}"
+      <button type="submit" class="btn btn-primary ${mascota.id}"
         >ADOPTAR</button
       >
     </div>
@@ -151,7 +165,7 @@ const crearCardMascotaParticular = (mascota) => {
 
   $(".mascotas-totales").append(card);
 
-  $(`.${mascota.nombre}`).click(() => {
+  $(`.${mascota.id}`).click(() => {
     eliminarMascota(mascota);
   });
 };
