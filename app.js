@@ -1,6 +1,8 @@
+let id = 0;
 // MASCOTA OBJETO
 class Mascota {
   constructor(nombre, tipo, sexo, raza, color, descripcion) {
+    this.id = id++;
     this.nombre = nombre;
     this.tipo = tipo;
     this.sexo = sexo;
@@ -68,6 +70,7 @@ const mascotasEnAdopcion = [
 
 // FUNCIONES
 const crearMascota = function () {
+  id++;
   let nombre = prompt("Ingrese el nombre de la mascota: ");
   let tipo = prompt("Ingrese el tipo de la mascota: ");
   let sexo = prompt("Ingrese el sexo de la mascota: ");
@@ -75,7 +78,15 @@ const crearMascota = function () {
   let color = prompt("Ingrese el color de la mascota: ");
   let descripcion = prompt("Ingrese una breve descripcion de la mascota: ");
 
-  let mascotaNueva = new Mascota(nombre, tipo, sexo, raza, color, descripcion);
+  let mascotaNueva = new Mascota(
+    id,
+    nombre,
+    tipo,
+    sexo,
+    raza,
+    color,
+    descripcion
+  );
   agregarMascotaDOM(mascotaNueva);
   return mascotaNueva;
 };
@@ -138,14 +149,7 @@ const crearCardMascotaParticular = (mascota) => {
     </div>
   </div>`;
 
-  /*   $mascotasTotales.appendChild(card); */
-
   $(".mascotas-totales").append(card);
-
-  /* const $botonAdoptar = document.querySelector(`.${mascota.nombre}`);
-  $botonAdoptar.addEventListener("click", () => {
-    eliminarMascota(mascota);
-  }); */
 
   $(`.${mascota.nombre}`).click(() => {
     eliminarMascota(mascota);
@@ -154,22 +158,8 @@ const crearCardMascotaParticular = (mascota) => {
 
 const agregarMascotaDOM = function (mascota) {
   crearCardMascotaParticular(mascota);
-  localStorage.setItem(`${mascota.nombre}`, JSON.stringify(mascota));
+  localStorage.setItem(`${mascota.id}`, JSON.stringify(mascota));
 };
-
-/* const $botonSubmit = document.querySelector(".enviar-form");
-$botonSubmit.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  let nombre = document.querySelector(".nombre").value;
-  let tipo = document.querySelector(".tipo").value;
-  let sexo = document.querySelector(".sexo").value;
-  let raza = document.querySelector(".raza").value;
-  let color = document.querySelector(".color").value;
-  let descripcion = document.querySelector(".descripcion").value;
-
-  agregarMascotaDOM(new Mascota(nombre, tipo, sexo, raza, color, descripcion));
-}); */
 
 const $botonSubmit = $(".formulario-adopcion");
 $botonSubmit.submit(function (e) {
@@ -178,16 +168,17 @@ $botonSubmit.submit(function (e) {
 
   console.log(hijos);
 
-  agregarMascotaDOM(
-    new Mascota(
-      hijos[1].value,
-      hijos[4].value,
-      hijos[7].value,
-      hijos[10].value,
-      hijos[13].value,
-      hijos[16].value
-    )
+  let nuevaMascota = new Mascota(
+    hijos[1].value,
+    hijos[4].value,
+    hijos[7].value,
+    hijos[10].value,
+    hijos[13].value,
+    hijos[16].value
   );
+
+  agregarMascotaDOM(nuevaMascota);
+  mascotasEnAdopcion.push(nuevaMascota);
 });
 
 // FUNCIONES BOTONES MENU
