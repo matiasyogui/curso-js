@@ -17,7 +17,7 @@ class Mascota {
 }
 
 // ARRAY INICIAL
-let mascotasEnAdopcion = [
+/* let mascotasEnAdopcion = [
   new Mascota(
     "richard",
     "gato",
@@ -67,13 +67,19 @@ let mascotasEnAdopcion = [
     "pajaro blanco grande :)"
   ),
 ];
-/* let mascotasEnAdopcion = [];
-const urlArrayInicial = "./src/array-inicial.json";
-$.get(urlArrayInicial, function (res, req) {
-  if (req === "success") {
-    mascotasEnAdopcion = res;
-  }
-}); */
+ */
+let mascotasEnAdopcion = [];
+$(() => {
+  const urlArrayInicial = "./src/array-inicial.json";
+  $.getJSON(urlArrayInicial, function (res, req) {
+    if (req === "success") {
+      console.log(res);
+      mascotasEnAdopcion = res;
+
+      crearCardsMascotas();
+    }
+  });
+});
 
 // FUNCIONES
 const crearMascota = function () {
@@ -196,17 +202,6 @@ $botonSubmit.submit(function (e) {
 });
 
 // FUNCIONES BOTONES MENU
-/* const cambiarVentanas = () => {
-  $mascotasTotales.classList.toggle("oculto");
-  $formMascotas.classList.toggle("oculto");
-};
-
-let $botonMostrarMascotas = document.querySelector("#mostrar-mascotas");
-let $botonFormAdoptar = document.querySelector("#poner-adopcion-mascota");
-
-$botonMostrarMascotas.addEventListener("click", cambiarVentanas);
-$botonFormAdoptar.addEventListener("click", cambiarVentanas); */
-
 $("#mostrar-mascotas").click(() => {
   $(".mascotas-totales").toggle("slow");
 });
@@ -214,6 +209,3 @@ $("#mostrar-mascotas").click(() => {
 $("#poner-adopcion-mascota").click(() => {
   $(".form-poner-en-adopcion").toggle("fast");
 });
-
-// MAIN
-crearCardsMascotas();
