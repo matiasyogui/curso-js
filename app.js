@@ -17,57 +17,6 @@ class Mascota {
 }
 
 // ARRAY INICIAL
-/* let mascotasEnAdopcion = [
-  new Mascota(
-    "richard",
-    "gato",
-    "macho",
-    "indefinido",
-    "marron",
-    "gato gris grande :)"
-  ),
-  new Mascota(
-    "reina",
-    "gato",
-    "hembra",
-    "siames",
-    "blanco",
-    "gata marron grande :)"
-  ),
-  new Mascota(
-    "lupe",
-    "perro",
-    "hembra",
-    "caniche",
-    "blanco",
-    "perra marron grande :)"
-  ),
-  new Mascota(
-    "mar",
-    "perro",
-    "hembra",
-    "indefinido",
-    "marron",
-    "perra marro grande :)"
-  ),
-  new Mascota(
-    "piolin",
-    "pajaro",
-    "macho",
-    "canario",
-    "amarillo",
-    "pajaro chiquito amarillo :)"
-  ),
-  new Mascota(
-    "donald",
-    "pajaro",
-    "macho",
-    "pato",
-    "blanco",
-    "pajaro blanco grande :)"
-  ),
-];
- */
 let mascotasEnAdopcion = [];
 $(() => {
   const urlArrayInicial = "./src/array-inicial.json";
