@@ -3,7 +3,35 @@
   text-decoration: underline;
 }
 
-.grilla {
+.mascotas-totales {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.contenedor {
+  text-align: center;
+}
+
+.card-mascota {
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 2rem;
+}
+
+.form-poner-en-adopcion {
+  margin: 2rem;
+}
+
+@media (max-width: 900px) {
+  .mascotas-totales {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .mascotas-totales {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 }

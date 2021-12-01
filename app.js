@@ -106,8 +106,8 @@ const sacarMascotaDelDOM = function (indexMascota) {
 const crearCardMascotaParticular = (mascota) => {
   let card = document.createElement("div");
   card.innerHTML = `<div
-    class="card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4"
     style="width: 18rem"
+    class="card-mascota"
   >
     <div class="card-body">
       <h5 class="card-title">${mascota.nombre}</h5>
